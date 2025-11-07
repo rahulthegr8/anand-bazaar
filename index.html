@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anand Bazaar | Online Retail & Wholesale Store</title>
+   <!-- 👇 Add Google Font here -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Your stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- 🔥 Top Blinking Offer Bar -->
+  <div class="top-offer-bar">
+    <span>🎉 Buy One Get One Free for New Users &nbsp; | &nbsp; 70% Off on All Orders &nbsp; <a href="#">Buy Now</a> 🎉</span>
+  </div>
+
+  <!-- Header -->
+  <header class="navbar">
+    <div class="logo">Anand <span>Bazaar</span></div>
+    <nav>
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="#">Shop</a></li>
+        <li><a href="Category/fashion-jewellery.html">Jewellery</a></li>
+        <li><a href="Category/makeup.html">Cosmetics</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="icons">
+      <a href="#"><img src="images/user.png" alt="User" /></a>
+      <a href="#"><img src="images/cart.png" alt="Cart" /></a>
+    </div>
+  </header>
+
+  <!-- Horizontal Category Strip -->
+  <section class="cat-strip">
+    <button class="cat-nav cat-prev" aria-label="Previous">‹</button>
+
+    <div class="cat-track">
+      <a href="Category/necklaces.html" class="cat-item">
+        <img src="images/cat/necklace.png" alt="Necklaces Sets">
+        <span>Necklaces Sets</span>
+      </a>
+
+      <a href="Category/earring.html" class="cat-item">
+        <img src="images/cat/Earring.png" alt="Earring">
+        <span>EarRing Design</span>
+      </a>
+
+      <a href="Category/bangles.html" class="cat-item">
+        <img src="images/cat/bangles.png" alt="Bangles">
+        <span>Bangles & Bracelets</span>
+      </a>
+
+      <a href="Category/mangalsutra.html" class="cat-item">
+        <img src="images/cat/mangalsutra.png" alt="Mangalsutra">
+        <span>Mangalsutra Collection</span>
+      </a>
+
+      <a href="Category/rings.html" class="cat-item">
+        <img src="images/cat/rings.png" alt="rings">
+        <span>Rings</span>
+      </a>
+
+      <a href="Category/payal.html" class="cat-item">
+        <img src="images/cat/payal.png" alt="Payal">
+        <span>Payal Collection</span>
+      </a>
+
+      <a href="Category/chain.html" class="cat-item">
+        <img src="images/cat/chain.png" alt="Chain">
+        <span>Golden Chain</span>
+      </a>
+
+      <a href="Category/hair-accessories.html" class="cat-item">
+        <img src="images/cat/hair.jpg" alt="Hair Accessories">
+        <span>Hair Accessories</span>
+      </a>
+
+      <a href="Category/waistbands.html" class="cat-item">
+        <img src="images/cat/waistband.jpg" alt="Waistbands">
+        <span>Waistbands</span>
+      </a>
+
+      <a href="Category/mangalsutra.html" class="cat-item">
+        <img src="images/cat/mangalsutra.jpg" alt="Mangalsutra Collection">
+        <span>Mangalsutra Collection</span>
+      </a>
+    </div>
+
+    <button class="cat-nav cat-next" aria-label="Next">›</button>
+  </section>
+
+  <!-- JS for smooth scrolling -->
+  <script>
+    (function(){
+      const track = document.querySelector('.cat-track');
+      const prev  = document.querySelector('.cat-prev');
+      const next  = document.querySelector('.cat-next');
+
+      function updateBtns(){
+        prev.disabled = track.scrollLeft <= 5;
+        next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 5;
+      }
+      function scrollBy(dir){
+        const step = track.clientWidth * 0.8;
+        track.scrollBy({ left: dir * step, behavior: 'smooth' });
+        setTimeout(updateBtns, 350);
+      }
+      prev.addEventListener('click', ()=>scrollBy(-1));
+      next.addEventListener('click', ()=>scrollBy(1));
+      track.addEventListener('scroll', updateBtns);
+      window.addEventListener('load', updateBtns);
+    })();
+  </script>
+
+</body>
+</html>
+
+  <!-- Promo Slider (fixed height + running sale text) -->
+<section class="promo-slider">
+  <!-- slides (change image paths as you like) -->
+  <div class="slide" style="background-image:url('slider/slider1.png');"></div>
+  <div class="slide" style="background-image:url('slider/slider2.png');"></div>
+  <div class="slide" style="background-image:url('slider/slider3.png');"></div>
+
+  <!-- running sale strip -->
+  <div class="promo-overlay">
+    <div class="marquee">
+      <span>🚚 Free Delivery Orders Above ₹1000 • 🎁 Buy One Get One Free For New Users • 💎 Jewellery Products Up To 80% Off •</span>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Categories Section -->
+  <section class="categories">
+  <h2>Shop by Category</h2>
+
+  <div class="cat-container">
+
+    <!-- Fashion Jewellery -->
+    <a href="Category/fashion-jewellery.html" class="cat-card">
+      <img src="images/Jewellery.png" alt="Fashion Jewellery">
+      <h3>Fashion Jewellery</h3>
+    </a>
+
+    <!-- Cosmetics & Makeup -->
+    <a href="Category/makeup.html" class="cat-card">
+      <img src="images/makeup.png" alt="Cosmetics & Makeup">
+      <h3>Cosmetics & Makeup</h3>
+    </a>
+
+    <!-- Gifts & Accessories -->
+    <a href="Category/gift-accessories.html" class="cat-card">
+      <img src="images/gifts.png" alt="Gifts & Accessories">
+      <h3>Gifts & Accessories</h3>
+    </a>
+
+    <!-- Fashion & Lifestyle -->
+    <a href="Category/fashion-lifestyle.html" class="cat-card">
+      <img src="images/fashion lifestyle.png" alt="Fashion & Lifestyle">
+      <h3>Fashion & Lifestyle</h3>
+    </a>
+
+    <!-- Hair & Body Care -->
+    <a href="Category/haircare.html" class="cat-card">
+      <img src="images/hair-care.jpg" alt="Hair Care">
+      <h3>Hair Care</h3>
+    </a>
+
+    <a href="Category/bodycare.html" class="cat-card">
+      <img src="images/body-care.jpg" alt="Body Care">
+      <h3>Body Care</h3>
+    </a>
+
+    <!-- Skin Care -->
+    <a href="Category/skin-care.html" class="cat-card">
+      <img src="images/skin-care.png" alt="Skin Care">
+      <h3>Skin Care</h3>
+    </a>
+
+    <!-- Women Undergarments -->
+    <a href="Category/womens-undergarments.html" class="cat-card">
+      <img src="images/women-undergarments.png" alt="Women Undergarments">
+      <h3>Women Undergarments</h3>
+    </a>
+
+    <!-- Seasonal & Special Collection -->
+    <a href="Category/seasonal-special-collection.html" class="cat-card">
+      <img src="images/seasonal collection.jpg" alt="Seasonal & Special Collection">
+      <h3>Seasonal & Special Collection</h3>
+    </a>
+
+<!-- Bridal Jewellery -->
+    <a href="Category/Bridal Jewellery Collection.html" class="cat-card">
+      <img src="images/bridal.png" alt="Bridal Jewellery Collection">
+      <h3>Bridal Jewellery Collection</h3>
+    </a>
+    <!-- Men Jewellery -->
+    <a href="Category/men Jewellery.html" class="cat-card">
+      <img src="images/men.png" alt="Men Jewellery Collection">
+      <h3>Men Jewellery Collection</h3>
+    </a>
+  </div>
+</section>
+
+
+
+  <!-- Featured Products -->
+  <section class="products">
+    <h2>Featured Products</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="products/earring1.jpg" alt="Earring">
+        <h3>Golden Jhumka Earrings</h3>
+        <p>₹299</p>
+        <button>Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="products/lipstick.jpg" alt="Lipstick">
+        <h3>Matte Lipstick Combo</h3>
+        <p>₹399</p>
+        <button>Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="products/necklace.jpg" alt="Necklace">
+        <h3>Kundan Necklace Set</h3>
+        <p>₹699</p>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Anand Bazaar. All Rights Reserved.</p>
+    <p>Wholesale & Online Retail | Sasaram, Bihar</p>
+  </footer>
+</body>
+</html>
