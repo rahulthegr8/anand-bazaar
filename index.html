@@ -10,28 +10,102 @@
 </head>
 <body>
 
-  <!-- Top Offer Bar -->
-  <div class="top-offer-bar">
-    <span>🎉 Buy One Get One Free for New Users &nbsp; | &nbsp; 70% Off on All Orders &nbsp; <a href="#">Buy Now</a> 🎉</span>
+  <!-- ========== TOP OFFER BAR (FINAL) ========== -->
+<div class="utility-bar">
+  <div class="util-center">
+    <span>🎉 Buy One Get One Free for New Users • 70% Off on All Orders • Buy Now 🎉</span>
   </div>
 
-  <!-- Header -->
-  <header class="navbar">
-    <div class="logo">Anand <span>Bazaar</span></div>
-    <nav>
-      <ul>
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="#">Shop</a></li>
-        <li><a href="Category/fashion-jewellery.html">Jewellery</a></li>
-        <li><a href="Category/makeup.html">Cosmetics</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
+  <div class="util-right">
+    <a href="#" id="locLink"><span class="i">📍</span><span id="city">Detecting...</span></a>
+    <a href="#"><span class="i">♡</span> Wishlist</a>
+    <a href="#"><span class="i">🛍️</span> Bag</a>
+  </div>
+</div>
+
+<!-- Auto-location Script -->
+<script>
+(function(){
+  const cityEl = document.getElementById('city');
+  if (!cityEl || !navigator.geolocation) {
+    cityEl.textContent = 'Location';
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(async pos => {
+    try {
+      const { latitude, longitude } = pos.coords;
+      const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`);
+      const data = await res.json();
+      const place =
+        data.address?.city ||
+        data.address?.town ||
+        data.address?.village ||
+        data.address?.state_district ||
+        'Location';
+      cityEl.textContent = place;
+    } catch (err) {
+      cityEl.textContent = 'Location';
+    }
+  },
+  err => {
+    cityEl.textContent = 'Location';
+  },
+  { timeout: 8000 });
+})();
+</script>
+
+
+
+<!-- Header -->
+<header class="navbar">
+  <div class="logo">
+    <img src="images/logo.png" alt="Anand Bazaar Logo" />
+    <span>Anand <strong>Bazaar</strong></span>
+  </div>
+
+  <nav>
+    <ul>
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="#">Shop</a></li>
+      <li><a href="Category/fashion-jewellery.html">Jewellery</a></li>
+      <li><a href="Category/makeup.html">Cosmetics</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- NEW: Offers chip OUTSIDE nav -->
+  <a class="offer-chip" href="#offers"><span class="g">🎁</span> OFFERS</a>
+</header>
+
     <div class="icons">
       <a href="#"><img src="/images/user.png" alt="User"></a>
       <a href="#"><img src="/images/cart.png" alt="Cart"></a>
     </div>
   </header>
+<!-- SEARCH STRIP -->
+<div class="search-strip">
+  <form class="search-form" action="#" method="get">
+    <input
+      type="text"
+      name="q"
+      placeholder="Search for brands and products"
+      aria-label="Search"
+    />
+    <button type="submit" aria-label="Search">🔍</button>
+  </form>
+
+ <div class="search-perks">
+  <span class="perk-badge bling">
+    <b>FREE SHIPPING</b> on prepaid orders
+  </span>
+
+  <span class="perk-badge alt bling">
+    <b>FREE SAMPLES</b> with every purchase
+  </span>
+</div>
+</div>
+
 
   <!-- Horizontal Category Strip -->
   <section class="cat-strip">
