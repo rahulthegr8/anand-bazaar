@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anand Bazaar | Fashion Jewellery</title>
+<style>
+  :root{
+    --brand:#e91e63; --dark:#222; --muted:#666; --bg:#fff; --shadow:0 6px 18px rgba(0,0,0,.12);
+  }
+  *{box-sizing:border-box} body{margin:0;font-family:Poppins,system-ui,-apple-system,sans-serif;color:#333;background:#fff}
+  a{text-decoration:none;color:inherit}
+
+  /* Top Ad strip */
+  .ad-strip{background:#111;color:#fff;padding:8px 14px;text-align:center;font-size:.95rem}
+  .ad-strip b{color:#ffd54f}
+
+  /* Header */
+  .navbar{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid #eee;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 22px}
+  .logo{font-weight:800;color:var(--brand)} .logo span{color:var(--dark)}
+  .nav ul{list-style:none;display:flex;gap:14px;flex-wrap:wrap;margin:0;padding:0}
+  .nav a{padding:6px 10px;border-radius:6px}
+  .nav a:hover{color:var(--brand)}
+  .cart-btn{position:relative;display:inline-flex;align-items:center;gap:8px;background:var(--brand);color:#fff;border:0;border-radius:8px;padding:8px 12px;cursor:pointer}
+  .cart-btn .count{background:#fff;color:var(--brand);border-radius:999px;font-size:.78rem;padding:2px 8px}
+
+  /* Banner */
+  .category-banner{color:#fff;text-align:center;padding:54px 24px;background:linear-gradient(45deg,#ffd89a,#f5a623)}
+  .category-banner h1{margin:0 0 6px}
+  .category-banner p{margin:0;opacity:.95}
+
+  /* Products */
+  .wrap{max-width:1150px;margin:0 auto;padding:28px 16px}
+  .product-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px}
+  .card{border:1px solid #f1f1f1;border-radius:12px;padding:14px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.06);transition:.25s}
+  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+  .card img{width:100%;height:220px;object-fit:cover;border-radius:8px;background:#fafafa}
+  .card h3{font-size:16px;margin:10px 0 6px}
+  .price{color:var(--brand);font-weight:700}
+  .mrp{color:#999;text-decoration:line-through;margin-left:6px}
+  .btn{background:var(--brand);color:#fff;border:0;padding:8px 12px;border-radius:8px;cursor:pointer}
+  .btn:disabled{opacity:.7;cursor:not-allowed}
+
+  /* Cart Drawer */
+  .drawer{position:fixed;top:0;right:-380px;width:360px;max-width:92vw;height:100dvh;background:#fff;border-left:1px solid #eee;
+    box-shadow:var(--shadow);transition:.3s;display:flex;flex-direction:column;z-index:20}
+  .drawer.open{right:0}
+  .drawer .head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #eee}
+  .drawer .items{flex:1;overflow:auto;padding:10px 12px}
+  .item{display:grid;grid-template-columns:64px 1fr auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dashed #eee}
+  .item img{width:64px;height:64px;object-fit:cover;border-radius:8px;background:#fafafa}
+  .qty{display:flex;gap:6px;align-items:center}
+  .qty button{width:26px;height:26px;border:1px solid #ddd;background:#fff;border-radius:6px;cursor:pointer}
+  .remove{background:none;border:0;color:#999;cursor:pointer}
+  .foot{border-top:1px solid #eee;padding:12px}
+  .row{display:flex;justify-content:space-between;margin:6px 0;color:#444}
+  .total{font-weight:800;color:var(--dark)}
+  .coupon{display:flex;gap:8px;margin:10px 0}
+  .coupon input{flex:1;padding:8px;border:1px solid #ddd;border-radius:8px}
+  .note{font-size:.85rem;color:#777}
+
+  /* Backdrop */
+  .backdrop{position:fixed;inset:0;background:rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:.2s;z-index:15}
+  .backdrop.show{opacity:1;pointer-events:auto}
+
+  footer{padding:20px;text-align:center;background:#fafafa;border-top:1px solid #eee;color:#555}
+</style>
+</head>
+<body>
+
+<!-- Offer / Ad strip -->
+<div class="ad-strip">Wholesale & Online Retail • <b>Same-day delivery in Sasaram*</b> • Use coupon <b>JEWEL20</b> today!</div>
+
+<!-- Header -->
+<header class="navbar">
+  <div class="logo">Anand <span>Bazaar</span></div>
+  <nav class="nav">
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="./fashion-jewellery.html">Jewellery</a></li>
+      <li><a href="./makeup.html">Cosmetics</a></li>
+      <li><a href="./gift-accessories.html">Gifts</a></li>
+      <li><a href="./skin-care.html">Skin Care</a></li>
+    </ul>
+  </nav>
+  <button class="cart-btn" id="openCart">🛒 Cart <span class="count" id="cartCount">0</span></button>
+</header>
+
+<!-- Category Banner -->
+<section class="category-banner">
+  <h1>Fashion Jewellery</h1>
+  <p>Necklace • Earrings • Bangles • Rings</p>
+</section>
+
+<!-- Products -->
+<div class="wrap">
+  <div class="product-grid" id="grid"></div>
+</div>
+
+<footer><p>© 2025 Anand Bazaar • Fashion Jewellery</p></footer>
+
+<!-- Cart Drawer -->
+<div class="drawer" id="drawer">
+  <div class="head">
+    <strong>Your Cart</strong>
+    <button class="remove" id="closeCart">✕</button>
+  </div>
+  <div class="items" id="cartItems"></div>
+  <div class="foot">
+    <div class="coupon">
+      <input id="couponInput" placeholder="Enter coupon (SAVE10 / JEWEL20 / SAVE50)">
+      <button class="btn" id="applyCoupon">Apply</button>
+    </div>
+    <div class="note">Coupons: <b>SAVE10</b> = 10% off • <b>JEWEL20</b> = 20% off (₹999+) • <b>SAVE50</b> = ₹50 off (₹499+)</div>
+    <div class="row"><span>Subtotal</span><span id="subTotal">₹0</span></div>
+    <div class="row"><span>Discount</span><span id="discount">-₹0</span></div>
+    <div class="row total"><span>Total</span><span id="grandTotal">₹0</span></div>
+    <button class="btn" style="width:100%;margin-top:8px">Checkout</button>
+  </div>
+</div>
+<div class="backdrop" id="backdrop"></div>
+
+<script>
+/* ---------- Products (आप अपनी images/price यहाँ बदलें) ---------- */
+const PRODUCTS = [
+  {id:'kundan-necklace-01', title:'Kundan Necklace Set', price:699, mrp:999, img:'../images/jewellery1.jpg'},
+  {id:'gold-jhumka-01',    title:'Golden Jhumka Earrings', price:299, mrp:399, img:'../images/jewellery2.jpg'},
+  {id:'pearl-bracelet-01', title:'Pearl Bracelet Combo', price:249, mrp:349, img:'../images/jewellery3.jpg'},
+  {id:'maangtikka-01',     title:'Traditional Maang Tikka', price:199, mrp:299, img:'../images/jewellery4.jpg'},
+  {id:'oxidized-set-01',   title:'Antique Oxidized Set', price:449, mrp:599, img:'../images/jewellery5.jpg'},
+  {id:'stone-ring-01',     title:'Crystal Stone Ring Set', price:199, mrp:299, img:'../images/jewellery6.jpg'}
+];
+
+/* ---------- Minimal Store (localStorage cart) ---------- */
+const KEY='ab_cart';
+const getCart=()=>JSON.parse(localStorage.getItem(KEY)||'[]');
+const setCart=v=>localStorage.setItem(KEY,JSON.stringify(v));
+
+/* ---------- Render Products ---------- */
+const grid=document.getElementById('grid');
+PRODUCTS.forEach(p=>{
+  const card=document.createElement('div');
+  card.className='card';
+  card.innerHTML=`
+    <img src="${p.img}" alt="${escapeHtml(p.title)}">
+    <h3>${escapeHtml(p.title)}</h3>
+    <p class="price">₹${p.price} <span class="mrp">₹${p.mrp}</span></p>
+    <button class="btn" data-id="${p.id}">Add to Cart</button>`;
+  card.querySelector('button').addEventListener('click',()=>addToCart(p.id));
+  grid.appendChild(card);
+});
+
+/* ---------- Cart Drawer ---------- */
+const drawer=document.getElementById('drawer');
+const backdrop=document.getElementById('backdrop');
+document.getElementById('openCart').onclick=()=>openDrawer(true);
+document.getElementById('closeCart').onclick=()=>openDrawer(false);
+backdrop.onclick=()=>openDrawer(false);
+
+function openDrawer(show){
+  drawer.classList.toggle('open',show);
+  backdrop.classList.toggle('show',show);
+  renderCart();
+}
+
+/* ---------- Cart Ops ---------- */
+function addToCart(id){
+  const cart=getCart();
+  const idx=cart.findIndex(i=>i.id===id);
+  if(idx>-1){ cart[idx].qty+=1; }
+  else{
+    const p=PRODUCTS.find(x=>x.id===id);
+    cart.push({id, qty:1, price:p.price, title:p.title, img:p.img});
+  }
+  setCart(cart); renderCart(); toast('Added to cart');
+}
+
+function changeQty(id,delta){
+  const cart=getCart();
+  const i=cart.find(x=>x.id===id); if(!i) return;
+  i.qty+=delta; if(i.qty<=0) cart.splice(cart.indexOf(i),1);
+  setCart(cart); renderCart();
+}
+
+function removeItem(id){
+  const cart=getCart().filter(i=>i.id!==id);
+  setCart(cart); renderCart();
+}
+
+/* ---------- Coupon Logic ---------- */
+const COUPONS = {
+  'SAVE10':  { type:'percent', value:10, min:0 },
+  'JEWEL20': { type:'percent', value:20, min:999 },
+  'SAVE50':  { type:'flat',    value:50, min:499 }
+};
+let applied = null;
+
+document.getElementById('applyCoupon').onclick=()=>{
+  const code = (document.getElementById('couponInput').value||'').trim().toUpperCase();
+  const cart=getCart();
+  const subtotal = cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const c = COUPONS[code];
+  if(!c) return toast('Invalid coupon');
+  if(subtotal < c.min) return toast(`Min order ₹${c.min} required`);
+  applied = c; toast(`Coupon applied: ${code}`);
+  renderTotals();
+};
+
+/* ---------- Render Cart & Totals ---------- */
+const cartItems=document.getElementById('cartItems');
+const subTotalEl=document.getElementById('subTotal');
+const discountEl=document.getElementById('discount');
+const grandEl=document.getElementById('grandTotal');
+const countEl=document.getElementById('cartCount');
+
+function renderCart(){
+  const cart=getCart();
+  countEl.textContent = cart.reduce((s,i)=>s+i.qty,0);
+  cartItems.innerHTML='';
+  if(!cart.length){
+    cartItems.innerHTML='<p style="color:#777;text-align:center;margin:16px 0">Your cart is empty</p>';
+  }else{
+    cart.forEach(i=>{
+      const row=document.createElement('div');
+      row.className='item';
+      row.innerHTML=`
+        <img src="${i.img}" alt="${escapeHtml(i.title)}">
+        <div>
+          <div style="font-weight:600">${escapeHtml(i.title)}</div>
+          <div class="qty">
+            <button onclick="changeQty('${i.id}',-1)">−</button>
+            <span>${i.qty}</span>
+            <button onclick="changeQty('${i.id}',1)">+</button>
+            <span style="margin-left:8px;color:#555">₹${i.price}</span>
+          </div>
+        </div>
+        <button class="remove" onclick="removeItem('${i.id}')">✕</button>`;
+      cartItems.appendChild(row);
+    });
+  }
+  renderTotals();
+}
+
+function renderTotals(){
+  const cart=getCart();
+  const subtotal = cart.reduce((s,i)=>s+i.price*i.qty,0);
+  let discount = 0;
+  if(applied){
+    if(subtotal >= (applied.min||0)){
+      discount = applied.type==='percent' ? Math.floor(subtotal*applied.value/100) : applied.value;
+    }
+  }
+  const total = Math.max(0, subtotal - discount);
+  subTotalEl.textContent = '₹'+subtotal;
+  discountEl.textContent = '-₹'+discount;
+  grandEl.textContent    = '₹'+total;
+}
+
+/* ---------- Helpers ---------- */
+function toast(msg){
+  const el=document.createElement('div');
+  el.textContent=msg; 
+  Object.assign(el.style,{position:'fixed',bottom:'18px',left:'50%',transform:'translateX(-50%)',
+    background:'#222',color:'#fff',padding:'10px 14px',borderRadius:'8px',zIndex:99,opacity:0,transition:'.2s'});
+  document.body.appendChild(el); setTimeout(()=>el.style.opacity=1,0);
+  setTimeout(()=>{el.style.opacity=0; setTimeout(()=>el.remove(),200);},1400);
+}
+function escapeHtml(s=''){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+
+/* First render */
+renderCart();
+</script>
+</body>
+</html>
